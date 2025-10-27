@@ -50,12 +50,23 @@ void room_remove_robot(Robot* robot) {
     }
 }
 
+void room_toggle_all_fov(void) {
+    for (int i = 0; i < s_robot_count; i++) {
+        robot_toggle_fov(s_robots[i]);
+    }
+}
+
 void room_scene_init(void) {
     s_robot_count = 0;
     
     Robot* robot1 = robot_create(200, 200, 15, RED);
-    Robot* robot2 = robot_create(400, 300, 15, RED);
-    Robot* robot3 = robot_create(600, 400, 15, RED);
+    robot_set_heading(robot1, 0.0f); // Facing right
+    
+    Robot* robot2 = robot_create(400, 300, 15, BLUE);
+    robot_set_heading(robot2, 2.356f); // Facing down-left (135 degrees)
+    
+    Robot* robot3 = robot_create(600, 400, 15, GREEN);
+    robot_set_heading(robot3, 4.712f); // Facing up (270 degrees)
     
     room_add_robot(robot1);
     room_add_robot(robot2);
@@ -63,6 +74,11 @@ void room_scene_init(void) {
 }
 
 void room_scene_update(void) {
+    // Toggle FOV with 'F' key
+    if (IsKeyPressed(KEY_F)) {
+        room_toggle_all_fov();
+    }
+    
     for (int i = 0; i < s_robot_count; i++) {
         entity_update((Entity*)s_robots[i]);
     }
