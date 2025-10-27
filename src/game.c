@@ -1,7 +1,8 @@
-#include "../include/raylib.h"
-#include "scene_manager.h"
+#include "./raylib/raylib.h"
+#include "scenes/scene_manager.h"
+#include "./overlays/overlay.h"
 
-#include "room.h"
+#include "scenes/room.h"
 
 SceneManager scene_manager;
 
@@ -12,6 +13,7 @@ void renderFrame() {
     BeginDrawing();
     ClearBackground(RAYWHITE);
     draw_current_scene(&scene_manager);
+    Overlay_Draw();
     EndDrawing();
 }
 
@@ -26,12 +28,16 @@ int main(void) {
     add_scene(&scene_manager, room_scene);
     switch_to_scene(&scene_manager, 0);
 
+    Overlay_Init();
+
     while (!WindowShouldClose()) {
         update_current_scene(&scene_manager);
+        Overlay_Update();
         renderFrame();
     }
 
     deinit_current_scene(&scene_manager);
+    Overlay_Close();
     CloseWindow();
     return 0;
 }

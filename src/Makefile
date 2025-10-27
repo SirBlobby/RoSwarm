@@ -34,8 +34,15 @@ PROJECT_VERSION       ?= 1.0
 PROJECT_BUILD_PATH    ?= .
 PROJECT_SOURCE_FILES  ?= \
     game.c \
-    scene_manager.c \
-    room.c \
+    scenes/scene_manager.c \
+    scenes/room.c \
+    overlays/overlay.c \
+    entities/entity.c \
+    entities/robot.c \
+    overlays/time_overlay.c \
+    overlays/settings_overlay.c
+    overlays/overlay_manager.c
+    
 
 # raylib library variables
 RAYLIB_SRC_PATH       ?= ../../raylib/src
